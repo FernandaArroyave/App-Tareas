@@ -1,0 +1,34 @@
+<div class="container">
+<h1>Hola este es mi Primer Proyecto</h1>
+
+<h2>{{Welcome}}</h2> 
+
+<ul> <!--Renderizar Lista--> <!--Directiva de control (ngFor) Son clases que añaden un nuevo comportamiento o modifican el existente a los elementos de la plantilla-->
+  <li *ngFor="let task of tasks"> <!--Iterar por el array de Tareas-->
+  {{task}} <!--imprime el valor de lo que se esta iterando-->
+  </li> 
+</ul>
+<hr />
+
+<h2>{{'Hola'.repeat(6)}}</h2>
+<p> la suma de 3 + 3 es {{ 3+3 }}</p>
+<p>Hola soy {{name}} y mi edad es {{age}}</p>
+
+<hr />
+
+<img [src]="person.avatar" alt="">
+<input type="number" [value]="person.age"> <!--Enlazar una variable (name) a una propiedad de un elemento [value]-->
+<button [disabled]="true">Click me</button>
+<p>person: {{ person.name}}</p>   <!--{Llaves para renderizar} [Cuadrados para propiedades o atributos de html] (parentesis para los eventos)-->
+
+<hr />
+
+<button (click)="clickHandler()">Click me</button>
+<button (dblclick)="clickHandler()">double me</button>
+<p>(change)</p>
+<input type="number" [value]="person.age" (change)="changeHandler($event)">
+<input type="text" [value]="person.age" (change)="changeHandler($event)">
+
+<p>(keydown)</p>
+<!--<input type="number" [value]="person.name" (change)="keydownHandler($event)"> -->
+</div>
