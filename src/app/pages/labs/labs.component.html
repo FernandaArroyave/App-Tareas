@@ -4,7 +4,7 @@
 <h2>{{Welcome}}</h2> 
 
 <ul> <!--Renderizar Lista--> <!--Directiva de control (ngFor) Son clases que añaden un nuevo comportamiento o modifican el existente a los elementos de la plantilla-->
-  <li *ngFor="let task of tasks"> <!--Iterar por el array de Tareas-->
+  <li *ngFor="let task of tasks ()"> <!--Iterar por el array de Tareas-->
   {{task}} <!--imprime el valor de lo que se esta iterando-->
   </li> 
 </ul>
@@ -12,23 +12,79 @@
 
 <h2>{{'Hola'.repeat(6)}}</h2>
 <p> la suma de 3 + 3 es {{ 3+3 }}</p>
-<p>Hola soy {{name}} y mi edad es {{age}}</p>
+<p>Hola soy {{name ()}} y mi edad es {{age}}</p> <!--Con el parentesis() se ejecuta la señal-->
 
 <hr />
 
-<img [src]="person.avatar" alt="">
-<input type="number" [value]="person.age"> <!--Enlazar una variable (name) a una propiedad de un elemento [value]-->
+<img [src]="person().avatar" alt="">
+<input type="number" [value]="person().age"> <!--Enlazar una variable (name) a una propiedad de un elemento [value]-->
 <button [disabled]="true">Click me</button>
-<p>person: {{ person.name}}</p>   <!--{Llaves para renderizar} [Cuadrados para propiedades o atributos de html] (parentesis para los eventos)-->
+<p>person: {{ person().name}}</p>   <!--{Llaves para renderizar} [Cuadrados para propiedades o atributos de html] (parentesis para los eventos)-->
 
 <hr />
 
 <button (click)="clickHandler()">Click me</button>
 <button (dblclick)="clickHandler()">double me</button>
 <p>(change)</p>
-<input type="number" [value]="person.age" (change)="changeHandler($event)">
-<input type="text" [value]="person.age" (change)="changeHandler($event)">
+<input type="number" [value]="person().age" (change)="changeHandler($event)">
+<input type="text" [value]="person().name" (change)="changeHandler($event)">
 
-<p>(keydown)</p>
-<!--<input type="number" [value]="person.name" (change)="keydownHandler($event)"> -->
+<p>(keydown)</p> <!--desata eventos cuando se oprime una tecla-->
+<input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
+
+<p>(keydown shift)</p> <!--Se destata un evento cuanto se oprime la tecla shift + t que retorna el evento clikhandlre que es un alert "Hola"--> 
+<input type="text" [value]="person().name" (keydown.shift.t)="clickHandler">
+
+<hr/>
+
+<ul> 
+  <p>total: {{tasks().length}}</p> <!--como obtener el valor con base a un array es decir cuantos elementos tiene-->
+  <li *ngFor="let task of tasks () index as i"> 
+  {{i}} {{task}} 
+  </li> 
+</ul>
+
+
+<h1>Signal</h1> <!--Cada vez que se cambie de forma reactiva "changeHandler" el {{name ()}} va a entender que algo cambio va areaccionar al cambio y va a actualizar el valor -->
+<input type="text" [value]="name ()" (change)="changeHandler($event)">
+
+<p>name: {{name ()}}</p>
+
+<hr />
+
+<div *ngIf="1 !== 1">
+My contend
 </div>
+
+<div *ngIf="name() === 'vanessa'">
+  Soy vanessa
+</div>
+
+<input type="number" [value]="person().age" (change)="changeAge($event)">
+
+<div *ngIf="person().name === 'vanessa' && person().age > 18; else miBloque">
+  Soy vanessa y soy mayor de 18 
+</div>
+
+<ng-template #miBloque>
+  Soy vanessa y soy menor de 18
+</ng-template>
+
+<input type="text" [value]="person().name" (change)="changeName($event)">
+
+<div [ngSwitch]="person().name">
+  <p *ngSwitchCase="'nicolas'">Yo soy nicolas</p>
+  <p *ngSwitchCase="'julian'">Yo soy julian</p>
+  <p *ngSwitchCase="'ana'">Yo soy ana</p>
+  <p *ngSwitchCase="'valentina'">Yo soy valentina</p>
+  <p *ngSwitchDefault>Yo no soy nadie </p>
+</div>
+<hr />
+
+<input type="color"[formControl] = "colorCtrl">
+<p>color: {{colorCtrl.value}}</p>
+
+
+</div>
+
+
